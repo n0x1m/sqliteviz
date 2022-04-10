@@ -1,0 +1,30 @@
+/*
+ * Graphviz for SQLite file '{{ .Name }}'
+ * Generated at {{ .Date }} with sqliteviz
+ * Source code available at https://github.com/n0x1m/sqliteviz
+ */
+
+digraph {
+rankdir=LR;
+fontname="Courier,Courier New";
+
+node [
+    fontsize=10
+    fontname="Courier,Courier New";
+]
+
+/* entities */{{ range .Entities }}
+{{.Name}} [shape=plaintext label=<<table border='0' cellborder='1' cellspacing='0' cellpadding='5'>
+    <tr><td colspan='3'><b>{{.Name}}</b></td></tr>
+    {{range .Attributes}}
+    <tr>
+        <td {{if .Primary}} bgcolor='#9945FF'{{end}}{{if .NotNull}} bgcolor='#14F195'{{end}} width='5'></td>
+        <td align="left"><b>{{.Name}}</b></td>
+        <td port='{{.Name}}'>{{.Type}}</td>
+    </tr>{{end}}
+</table>>];
+{{end}}
+
+/* relations */{{ range .Relations }}
+{{.SourceTable}}:{{.SourceColumn}} -> {{.TargetTable}}:{{.TargetColumn}};{{end}}
+}
