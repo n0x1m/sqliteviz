@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"flag"
 	"fmt"
 	"os"
 	"strings"
@@ -11,13 +12,37 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-func main() {
-	if len(os.Args) == 1 {
-		fmt.Printf("No database specified\n")
-		os.Exit(1)
+type ignoreList map[string]struct{}
+
+func (i *ignoreList) String() string {
+	return fmt.Sprint(*i)
+}
+
+func (i *ignoreList) Set(value string) error {
+	for _, v := range strings.Split(value, ",") {
+		(*i)[v] = struct{}{}
 	}
 
-	path := os.Args[1]
+	return nil
+}
+
+func main() {
+	var path string
+	var ignore = make(ignoreList)
+
+	flag.StringVar(&path, "db", "", "sqlite database path")
+	flag.Var(&ignore, "ignore", "tables to ignore")
+	flag.Parse()
+
+	if path == "" && len(ignore) == 0 && len(os.Args) == 2 {
+		path = os.Args[1]
+	}
+
+	if path == "" {
+		fmt.Fprintf(os.Stderr, "Usage of %s:\n", os.Args[0])
+		flag.PrintDefaults()
+		os.Exit(1)
+	}
 
 	db, err := sql.Open("sqlite3", path)
 	if err != nil {
@@ -38,8 +63,7 @@ func main() {
 	var rs []*ForeignKey
 
 	for _, table := range tables {
-		// TODO: cmd line arg
-		if table.Name == "schema_migrations" {
+		if _, inList := ignore[table.Name]; inList {
 			continue
 		}
 
@@ -109,7 +133,7 @@ func main() {
 	}
 
 	err = RenderFromTemplate(&Diagram{
-		Name:      os.Args[1],
+		Name:      path,
 		Date:      time.Now().Format(time.RFC3339),
 		Entities:  entities,
 		Relations: rs,
