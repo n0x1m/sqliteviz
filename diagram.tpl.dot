@@ -20,8 +20,8 @@ node [
     <tr>
         <td {{if .Primary}} bgcolor='#9945FF'{{else if or .Key .IsIndex }} bgcolor='#14F195'{{end}} width='5'></td>
         <td align="left"><b>{{.Name}}</b></td>
-        <td {{if and (not .Primary) .Nullable }} bgcolor='#03E1FF'{{end}} width='5'></td>
-        <td {{if not .IsIndex }}port='{{.Name}}'{{end}}>{{.Type}}</td>
+        <td>{{.Type}}</td>
+        <td {{if and (not .Primary) .Nullable }} bgcolor='#03E1FF'{{end}} {{if not .IsIndex }}port='{{.Name}}'{{end}} width='5'></td>
     </tr>{{end}}
 </table>>];
 {{end}}
