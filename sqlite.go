@@ -30,6 +30,8 @@ func Tables(db *sqlx.DB) (results []Table, err error) {
 		return nil, err
 	}
 
+	defer rows.Close()
+
 	for rows.Next() {
 		var t Table
 		err = rows.StructScan(&t)
@@ -57,6 +59,8 @@ func Info(db *sqlx.DB, table string) (results []TableInfo, err error) {
 	if err != nil {
 		return nil, err
 	}
+
+	defer rows.Close()
 
 	for rows.Next() {
 		var t TableInfo
@@ -93,6 +97,8 @@ func ForeignKeys(db *sqlx.DB, table string) (results []TableForeignKey, err erro
 		return nil, err
 	}
 
+	defer rows.Close()
+
 	for rows.Next() {
 		var t TableForeignKey
 		err = rows.StructScan(&t)
@@ -118,6 +124,8 @@ func Indices(db *sqlx.DB) (results []TableIndex, err error) {
 		return nil, err
 	}
 
+	defer rows.Close()
+
 	for rows.Next() {
 		var t TableIndex
 		err = rows.StructScan(&t)
@@ -142,6 +150,8 @@ func IndexInfo(db *sqlx.DB, idx string) (results []TableIndexInfo, err error) {
 	if err != nil {
 		return nil, err
 	}
+
+	defer rows.Close()
 
 	for rows.Next() {
 		var t TableIndexInfo

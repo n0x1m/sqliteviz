@@ -62,6 +62,7 @@ func addIndex(entities []*Entity, table, key string, unique bool) {
 				Nullable: false,
 				IsIndex:  true,
 			})
+
 			return
 		}
 	}

@@ -1,12 +1,13 @@
 # SQLiteViz
 
-Go application that creates simple diagrams from your SQLite database schemas.
+Go application that creates simple diagrams in .dot, .png or .svg from your
+SQLite database schemas using Graphviz. 
 
-Install with:
+Installation:
 
     go install github.com/n0x1m/sqliteviz@latest
 
-Cli usage:
+Usage, provided graphviz is installed:
 
 ```sh
 Usage of ./sqliteviz:

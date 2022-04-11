@@ -27,10 +27,11 @@ func (i *ignoreList) Set(value string) error {
 }
 
 func main() {
-	var path string
+	var path, template string
 	var ignore = make(ignoreList)
 
 	flag.StringVar(&path, "db", "", "sqlite database path")
+	flag.StringVar(&template, "template", "diagram.tpl.dot", "template file to use")
 	flag.Var(&ignore, "ignore", "tables to ignore")
 	flag.Parse()
 
@@ -60,8 +61,6 @@ func main() {
 	}
 
 	var entities []*Entity
-	var rs []*ForeignKey
-
 	for _, table := range tables {
 		if _, inList := ignore[table.Name]; inList {
 			continue
@@ -91,6 +90,7 @@ func main() {
 		})
 	}
 
+	var rs []*ForeignKey
 	for _, table := range tables {
 		fks, err := ForeignKeys(sqlxDB, table.Name)
 		if err != nil {
@@ -137,7 +137,7 @@ func main() {
 		Date:      time.Now().Format(time.RFC3339),
 		Entities:  entities,
 		Relations: rs,
-	}, "diagram.tpl.dot")
+	}, template)
 	if err != nil {
 		fmt.Fprint(os.Stderr, "failed to render digraph:", err)
 	}
