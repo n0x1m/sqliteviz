@@ -1,0 +1,541 @@
+/*
+ * Graphviz for SQLite file '-db'
+ * Generated at 2022-04-11T21:31:34+08:00 with sqliteviz
+ * Source code available at https://github.com/n0x1m/sqliteviz
+ */
+
+digraph {
+rankdir=LR;
+fontname="Courier,Courier New";
+
+graph [
+    splines="spline"
+    overlap="false"
+    bgcolor="white"
+];
+
+node [
+    fontsize=10
+    fontname="Courier,Courier New";
+];
+
+/* entities */
+albums [shape=plaintext label=<<table border='0' cellborder='1' cellspacing='0' cellpadding='5'>
+    <tr><td colspan='4'><b>albums</b></td></tr>
+    
+    <tr>
+        <td  bgcolor='#9945FF' width='5'></td>
+        <td align="left"><b>AlbumId</b></td>
+        <td>INTEGER</td>
+        <td  port='AlbumId' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>Title</b></td>
+        <td>NVARCHAR(160)</td>
+        <td  port='Title' width='5'></td>
+    </tr>
+    <tr>
+        <td  bgcolor='#14F195' width='5'></td>
+        <td align="left"><b>ArtistId</b></td>
+        <td>INTEGER</td>
+        <td  port='ArtistId' width='5'></td>
+    </tr>
+    <tr>
+        <td  bgcolor='#14F195' width='5'></td>
+        <td align="left"><b>IFK_AlbumArtistId (ArtistId)</b></td>
+        <td>INDEX</td>
+        <td   width='5'></td>
+    </tr>
+</table>>];
+
+artists [shape=plaintext label=<<table border='0' cellborder='1' cellspacing='0' cellpadding='5'>
+    <tr><td colspan='4'><b>artists</b></td></tr>
+    
+    <tr>
+        <td  bgcolor='#9945FF' width='5'></td>
+        <td align="left"><b>ArtistId</b></td>
+        <td>INTEGER</td>
+        <td  port='ArtistId' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>Name</b></td>
+        <td>NVARCHAR(120)</td>
+        <td  bgcolor='#03E1FF' port='Name' width='5'></td>
+    </tr>
+</table>>];
+
+customers [shape=plaintext label=<<table border='0' cellborder='1' cellspacing='0' cellpadding='5'>
+    <tr><td colspan='4'><b>customers</b></td></tr>
+    
+    <tr>
+        <td  bgcolor='#9945FF' width='5'></td>
+        <td align="left"><b>CustomerId</b></td>
+        <td>INTEGER</td>
+        <td  port='CustomerId' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>FirstName</b></td>
+        <td>NVARCHAR(40)</td>
+        <td  port='FirstName' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>LastName</b></td>
+        <td>NVARCHAR(20)</td>
+        <td  port='LastName' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>Company</b></td>
+        <td>NVARCHAR(80)</td>
+        <td  bgcolor='#03E1FF' port='Company' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>Address</b></td>
+        <td>NVARCHAR(70)</td>
+        <td  bgcolor='#03E1FF' port='Address' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>City</b></td>
+        <td>NVARCHAR(40)</td>
+        <td  bgcolor='#03E1FF' port='City' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>State</b></td>
+        <td>NVARCHAR(40)</td>
+        <td  bgcolor='#03E1FF' port='State' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>Country</b></td>
+        <td>NVARCHAR(40)</td>
+        <td  bgcolor='#03E1FF' port='Country' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>PostalCode</b></td>
+        <td>NVARCHAR(10)</td>
+        <td  bgcolor='#03E1FF' port='PostalCode' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>Phone</b></td>
+        <td>NVARCHAR(24)</td>
+        <td  bgcolor='#03E1FF' port='Phone' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>Fax</b></td>
+        <td>NVARCHAR(24)</td>
+        <td  bgcolor='#03E1FF' port='Fax' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>Email</b></td>
+        <td>NVARCHAR(60)</td>
+        <td  port='Email' width='5'></td>
+    </tr>
+    <tr>
+        <td  bgcolor='#14F195' width='5'></td>
+        <td align="left"><b>SupportRepId</b></td>
+        <td>INTEGER</td>
+        <td  bgcolor='#03E1FF' port='SupportRepId' width='5'></td>
+    </tr>
+    <tr>
+        <td  bgcolor='#14F195' width='5'></td>
+        <td align="left"><b>IFK_CustomerSupportRepId (SupportRepId)</b></td>
+        <td>INDEX</td>
+        <td   width='5'></td>
+    </tr>
+</table>>];
+
+employees [shape=plaintext label=<<table border='0' cellborder='1' cellspacing='0' cellpadding='5'>
+    <tr><td colspan='4'><b>employees</b></td></tr>
+    
+    <tr>
+        <td  bgcolor='#9945FF' width='5'></td>
+        <td align="left"><b>EmployeeId</b></td>
+        <td>INTEGER</td>
+        <td  port='EmployeeId' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>LastName</b></td>
+        <td>NVARCHAR(20)</td>
+        <td  port='LastName' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>FirstName</b></td>
+        <td>NVARCHAR(20)</td>
+        <td  port='FirstName' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>Title</b></td>
+        <td>NVARCHAR(30)</td>
+        <td  bgcolor='#03E1FF' port='Title' width='5'></td>
+    </tr>
+    <tr>
+        <td  bgcolor='#14F195' width='5'></td>
+        <td align="left"><b>ReportsTo</b></td>
+        <td>INTEGER</td>
+        <td  bgcolor='#03E1FF' port='ReportsTo' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>BirthDate</b></td>
+        <td>DATETIME</td>
+        <td  bgcolor='#03E1FF' port='BirthDate' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>HireDate</b></td>
+        <td>DATETIME</td>
+        <td  bgcolor='#03E1FF' port='HireDate' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>Address</b></td>
+        <td>NVARCHAR(70)</td>
+        <td  bgcolor='#03E1FF' port='Address' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>City</b></td>
+        <td>NVARCHAR(40)</td>
+        <td  bgcolor='#03E1FF' port='City' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>State</b></td>
+        <td>NVARCHAR(40)</td>
+        <td  bgcolor='#03E1FF' port='State' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>Country</b></td>
+        <td>NVARCHAR(40)</td>
+        <td  bgcolor='#03E1FF' port='Country' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>PostalCode</b></td>
+        <td>NVARCHAR(10)</td>
+        <td  bgcolor='#03E1FF' port='PostalCode' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>Phone</b></td>
+        <td>NVARCHAR(24)</td>
+        <td  bgcolor='#03E1FF' port='Phone' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>Fax</b></td>
+        <td>NVARCHAR(24)</td>
+        <td  bgcolor='#03E1FF' port='Fax' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>Email</b></td>
+        <td>NVARCHAR(60)</td>
+        <td  bgcolor='#03E1FF' port='Email' width='5'></td>
+    </tr>
+    <tr>
+        <td  bgcolor='#14F195' width='5'></td>
+        <td align="left"><b>IFK_EmployeeReportsTo (ReportsTo)</b></td>
+        <td>INDEX</td>
+        <td   width='5'></td>
+    </tr>
+</table>>];
+
+genres [shape=plaintext label=<<table border='0' cellborder='1' cellspacing='0' cellpadding='5'>
+    <tr><td colspan='4'><b>genres</b></td></tr>
+    
+    <tr>
+        <td  bgcolor='#9945FF' width='5'></td>
+        <td align="left"><b>GenreId</b></td>
+        <td>INTEGER</td>
+        <td  port='GenreId' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>Name</b></td>
+        <td>NVARCHAR(120)</td>
+        <td  bgcolor='#03E1FF' port='Name' width='5'></td>
+    </tr>
+</table>>];
+
+invoices [shape=plaintext label=<<table border='0' cellborder='1' cellspacing='0' cellpadding='5'>
+    <tr><td colspan='4'><b>invoices</b></td></tr>
+    
+    <tr>
+        <td  bgcolor='#9945FF' width='5'></td>
+        <td align="left"><b>InvoiceId</b></td>
+        <td>INTEGER</td>
+        <td  port='InvoiceId' width='5'></td>
+    </tr>
+    <tr>
+        <td  bgcolor='#14F195' width='5'></td>
+        <td align="left"><b>CustomerId</b></td>
+        <td>INTEGER</td>
+        <td  port='CustomerId' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>InvoiceDate</b></td>
+        <td>DATETIME</td>
+        <td  port='InvoiceDate' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>BillingAddress</b></td>
+        <td>NVARCHAR(70)</td>
+        <td  bgcolor='#03E1FF' port='BillingAddress' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>BillingCity</b></td>
+        <td>NVARCHAR(40)</td>
+        <td  bgcolor='#03E1FF' port='BillingCity' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>BillingState</b></td>
+        <td>NVARCHAR(40)</td>
+        <td  bgcolor='#03E1FF' port='BillingState' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>BillingCountry</b></td>
+        <td>NVARCHAR(40)</td>
+        <td  bgcolor='#03E1FF' port='BillingCountry' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>BillingPostalCode</b></td>
+        <td>NVARCHAR(10)</td>
+        <td  bgcolor='#03E1FF' port='BillingPostalCode' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>Total</b></td>
+        <td>NUMERIC(10,2)</td>
+        <td  port='Total' width='5'></td>
+    </tr>
+    <tr>
+        <td  bgcolor='#14F195' width='5'></td>
+        <td align="left"><b>IFK_InvoiceCustomerId (CustomerId)</b></td>
+        <td>INDEX</td>
+        <td   width='5'></td>
+    </tr>
+</table>>];
+
+invoice_items [shape=plaintext label=<<table border='0' cellborder='1' cellspacing='0' cellpadding='5'>
+    <tr><td colspan='4'><b>invoice_items</b></td></tr>
+    
+    <tr>
+        <td  bgcolor='#9945FF' width='5'></td>
+        <td align="left"><b>InvoiceLineId</b></td>
+        <td>INTEGER</td>
+        <td  port='InvoiceLineId' width='5'></td>
+    </tr>
+    <tr>
+        <td  bgcolor='#14F195' width='5'></td>
+        <td align="left"><b>InvoiceId</b></td>
+        <td>INTEGER</td>
+        <td  port='InvoiceId' width='5'></td>
+    </tr>
+    <tr>
+        <td  bgcolor='#14F195' width='5'></td>
+        <td align="left"><b>TrackId</b></td>
+        <td>INTEGER</td>
+        <td  port='TrackId' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>UnitPrice</b></td>
+        <td>NUMERIC(10,2)</td>
+        <td  port='UnitPrice' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>Quantity</b></td>
+        <td>INTEGER</td>
+        <td  port='Quantity' width='5'></td>
+    </tr>
+    <tr>
+        <td  bgcolor='#14F195' width='5'></td>
+        <td align="left"><b>IFK_InvoiceLineInvoiceId (InvoiceId)</b></td>
+        <td>INDEX</td>
+        <td   width='5'></td>
+    </tr>
+    <tr>
+        <td  bgcolor='#14F195' width='5'></td>
+        <td align="left"><b>IFK_InvoiceLineTrackId (TrackId)</b></td>
+        <td>INDEX</td>
+        <td   width='5'></td>
+    </tr>
+</table>>];
+
+media_types [shape=plaintext label=<<table border='0' cellborder='1' cellspacing='0' cellpadding='5'>
+    <tr><td colspan='4'><b>media_types</b></td></tr>
+    
+    <tr>
+        <td  bgcolor='#9945FF' width='5'></td>
+        <td align="left"><b>MediaTypeId</b></td>
+        <td>INTEGER</td>
+        <td  port='MediaTypeId' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>Name</b></td>
+        <td>NVARCHAR(120)</td>
+        <td  bgcolor='#03E1FF' port='Name' width='5'></td>
+    </tr>
+</table>>];
+
+playlists [shape=plaintext label=<<table border='0' cellborder='1' cellspacing='0' cellpadding='5'>
+    <tr><td colspan='4'><b>playlists</b></td></tr>
+    
+    <tr>
+        <td  bgcolor='#9945FF' width='5'></td>
+        <td align="left"><b>PlaylistId</b></td>
+        <td>INTEGER</td>
+        <td  port='PlaylistId' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>Name</b></td>
+        <td>NVARCHAR(120)</td>
+        <td  bgcolor='#03E1FF' port='Name' width='5'></td>
+    </tr>
+</table>>];
+
+playlist_track [shape=plaintext label=<<table border='0' cellborder='1' cellspacing='0' cellpadding='5'>
+    <tr><td colspan='4'><b>playlist_track</b></td></tr>
+    
+    <tr>
+        <td  bgcolor='#9945FF' width='5'></td>
+        <td align="left"><b>PlaylistId</b></td>
+        <td>INTEGER</td>
+        <td  port='PlaylistId' width='5'></td>
+    </tr>
+    <tr>
+        <td  bgcolor='#14F195' width='5'></td>
+        <td align="left"><b>TrackId</b></td>
+        <td>INTEGER</td>
+        <td  port='TrackId' width='5'></td>
+    </tr>
+    <tr>
+        <td  bgcolor='#14F195' width='5'></td>
+        <td align="left"><b>IFK_PlaylistTrackTrackId (TrackId)</b></td>
+        <td>INDEX</td>
+        <td   width='5'></td>
+    </tr>
+    <tr>
+        <td  bgcolor='#14F195' width='5'></td>
+        <td align="left"><b>sqlite_autoindex_playlist_track_1 (PlaylistId, TrackId)</b></td>
+        <td>UNIQUE INDEX</td>
+        <td   width='5'></td>
+    </tr>
+</table>>];
+
+tracks [shape=plaintext label=<<table border='0' cellborder='1' cellspacing='0' cellpadding='5'>
+    <tr><td colspan='4'><b>tracks</b></td></tr>
+    
+    <tr>
+        <td  bgcolor='#9945FF' width='5'></td>
+        <td align="left"><b>TrackId</b></td>
+        <td>INTEGER</td>
+        <td  port='TrackId' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>Name</b></td>
+        <td>NVARCHAR(200)</td>
+        <td  port='Name' width='5'></td>
+    </tr>
+    <tr>
+        <td  bgcolor='#14F195' width='5'></td>
+        <td align="left"><b>AlbumId</b></td>
+        <td>INTEGER</td>
+        <td  bgcolor='#03E1FF' port='AlbumId' width='5'></td>
+    </tr>
+    <tr>
+        <td  bgcolor='#14F195' width='5'></td>
+        <td align="left"><b>MediaTypeId</b></td>
+        <td>INTEGER</td>
+        <td  port='MediaTypeId' width='5'></td>
+    </tr>
+    <tr>
+        <td  bgcolor='#14F195' width='5'></td>
+        <td align="left"><b>GenreId</b></td>
+        <td>INTEGER</td>
+        <td  bgcolor='#03E1FF' port='GenreId' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>Composer</b></td>
+        <td>NVARCHAR(220)</td>
+        <td  bgcolor='#03E1FF' port='Composer' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>Milliseconds</b></td>
+        <td>INTEGER</td>
+        <td  port='Milliseconds' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>Bytes</b></td>
+        <td>INTEGER</td>
+        <td  bgcolor='#03E1FF' port='Bytes' width='5'></td>
+    </tr>
+    <tr>
+        <td  width='5'></td>
+        <td align="left"><b>UnitPrice</b></td>
+        <td>NUMERIC(10,2)</td>
+        <td  port='UnitPrice' width='5'></td>
+    </tr>
+    <tr>
+        <td  bgcolor='#14F195' width='5'></td>
+        <td align="left"><b>IFK_TrackAlbumId (AlbumId)</b></td>
+        <td>INDEX</td>
+        <td   width='5'></td>
+    </tr>
+    <tr>
+        <td  bgcolor='#14F195' width='5'></td>
+        <td align="left"><b>IFK_TrackGenreId (GenreId)</b></td>
+        <td>INDEX</td>
+        <td   width='5'></td>
+    </tr>
+    <tr>
+        <td  bgcolor='#14F195' width='5'></td>
+        <td align="left"><b>IFK_TrackMediaTypeId (MediaTypeId)</b></td>
+        <td>INDEX</td>
+        <td   width='5'></td>
+    </tr>
+</table>>];
+
+
+/* relations */
+artists:ArtistId -> albums:ArtistId;
+employees:EmployeeId -> customers:SupportRepId;
+employees:EmployeeId -> employees:ReportsTo;
+customers:CustomerId -> invoices:CustomerId;
+tracks:TrackId -> invoice_items:TrackId;
+invoices:InvoiceId -> invoice_items:InvoiceId;
+tracks:TrackId -> playlist_track:TrackId;
+playlists:PlaylistId -> playlist_track:PlaylistId;
+media_types:MediaTypeId -> tracks:MediaTypeId;
+genres:GenreId -> tracks:GenreId;
+albums:AlbumId -> tracks:AlbumId;
+}
