@@ -76,7 +76,7 @@ sqlite> select * from pragma_foreign_key_list('fills');
 id|seq|table|from|to|on_update|on_delete|match
 */
 
-type TableForeignKeys struct {
+type TableForeignKey struct {
 	ID       int    `db:"id"`
 	Seq      int    `db:"seq"`
 	Table    string `db:"table"`
@@ -87,14 +87,64 @@ type TableForeignKeys struct {
 	Match    string `db:"match"`
 }
 
-func ForeignKeys(db *sqlx.DB, table string) (results []TableForeignKeys, err error) {
+func ForeignKeys(db *sqlx.DB, table string) (results []TableForeignKey, err error) {
 	rows, err := db.Queryx("SELECT * FROM pragma_foreign_key_list(?)", table)
 	if err != nil {
 		return nil, err
 	}
 
 	for rows.Next() {
-		var t TableForeignKeys
+		var t TableForeignKey
+		err = rows.StructScan(&t)
+		if err != nil {
+			return nil, err
+		}
+
+		results = append(results, t)
+	}
+
+	return results, nil
+}
+
+type TableIndex struct {
+	Table  string `db:"tbl"`
+	Name   string `db:"name"`
+	Unique int    `db:"uniq"`
+}
+
+func Indices(db *sqlx.DB) (results []TableIndex, err error) {
+	rows, err := db.Queryx(`select m.name as tbl, il.name as name, il.[unique] as uniq from sqlite_master as m, pragma_index_list(m.name) as il, pragma_index_info(il.name) as ii where m.type='table' group by il.name, m.name order by m.name, il.name`)
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		var t TableIndex
+		err = rows.StructScan(&t)
+		if err != nil {
+			return nil, err
+		}
+
+		results = append(results, t)
+	}
+
+	return results, nil
+}
+
+type TableIndexInfo struct {
+	Seq  int    `db:"seqno"`
+	CID  int    `db:"cid"`
+	Name string `db:"name"`
+}
+
+func IndexInfo(db *sqlx.DB, idx string) (results []TableIndexInfo, err error) {
+	rows, err := db.Queryx(`select * from pragma_index_info(?)`, idx)
+	if err != nil {
+		return nil, err
+	}
+
+	for rows.Next() {
+		var t TableIndexInfo
 		err = rows.StructScan(&t)
 		if err != nil {
 			return nil, err

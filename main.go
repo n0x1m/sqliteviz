@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/jmoiron/sqlx"
@@ -49,14 +50,14 @@ func main() {
 			os.Exit(1)
 		}
 
-		attrs := make([]*Column, len(columns))
+		attrs := make([]*Attribute, len(columns))
 		for i, col := range columns {
 			// fmt.Println(i, col.Name)
-			attrs[i] = &Column{
-				Name:    col.Name,
-				Primary: col.Pk == 1,
-				Type:    col.DataType,
-				NotNull: col.NotNull,
+			attrs[i] = &Attribute{
+				Name:     col.Name,
+				Primary:  col.Pk == 1,
+				Type:     col.DataType,
+				Nullable: !col.NotNull,
 			}
 		}
 
@@ -77,7 +78,6 @@ func main() {
 			setKey(entities, table.Name, fk.From)
 			setKey(entities, fk.Table, fk.To)
 
-			// TODO: composite keys when seq increments with the same id
 			rs = append(rs, &ForeignKey{
 				TargetTable:  table.Name,
 				TargetColumn: fk.From,
@@ -87,10 +87,34 @@ func main() {
 		}
 	}
 
-	RenderFromTemplate(&Diagram{
+	indices, err := Indices(sqlxDB)
+	if err != nil {
+		fmt.Printf("Error listing indices: %s\n", err)
+		os.Exit(1)
+	}
+
+	for _, index := range indices {
+		list, err := IndexInfo(sqlxDB, index.Name)
+		if err != nil {
+			os.Exit(1)
+		}
+
+		var compositeKey []string
+		for _, key := range list {
+			compositeKey = append(compositeKey, key.Name)
+		}
+
+		idx := fmt.Sprintf("%s (%s)", index.Name, strings.Join(compositeKey, ", "))
+		addIndex(entities, index.Table, idx, index.Unique == 1)
+	}
+
+	err = RenderFromTemplate(&Diagram{
 		Name:      os.Args[1],
 		Date:      time.Now().Format(time.RFC3339),
 		Entities:  entities,
 		Relations: rs,
 	}, "diagram.tpl.dot")
+	if err != nil {
+		fmt.Fprint(os.Stderr, "failed to render digraph:", err)
+	}
 }
