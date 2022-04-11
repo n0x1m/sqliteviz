@@ -8,10 +8,16 @@ digraph {
 rankdir=LR;
 fontname="Courier,Courier New";
 
+graph [
+    splines="spline"
+    overlap="false"
+    bgcolor="white"
+];
+
 node [
     fontsize=10
     fontname="Courier,Courier New";
-]
+];
 
 /* entities */{{ range .Entities }}
 {{.Name}} [shape=plaintext label=<<table border='0' cellborder='1' cellspacing='0' cellpadding='5'>

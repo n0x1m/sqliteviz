@@ -4,3 +4,4 @@
 !*.tpl.dot
 *.sqlite3
 *.db
+sqliteviz
