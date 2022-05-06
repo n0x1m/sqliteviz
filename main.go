@@ -27,27 +27,38 @@ func (i *ignoreList) Set(value string) error {
 }
 
 func main() {
-	var path, template string
+	var err error
+	var dbpath, template, out string
 	var ignore = make(ignoreList)
 
-	flag.StringVar(&path, "db", "", "sqlite database path")
+	flag.StringVar(&dbpath, "db", "", "sqlite database path")
 	flag.StringVar(&template, "template", "diagram.tpl.dot", "template file to use")
+	flag.StringVar(&out, "out", "", "output file to write to write to")
 	flag.Var(&ignore, "ignore", "tables to ignore")
 	flag.Parse()
 
-	if path == "" && len(ignore) == 0 && len(os.Args) == 2 {
-		path = os.Args[1]
+	// convenience
+	if dbpath == "" && len(ignore) == 0 && len(os.Args) == 2 {
+		dbpath = os.Args[1]
 	}
 
-	if path == "" {
+	if dbpath == "" {
 		fmt.Fprintf(os.Stderr, "Usage of %s:\n", os.Args[0])
 		flag.PrintDefaults()
 		os.Exit(1)
 	}
 
-	db, err := sql.Open("sqlite3", path)
+	output := os.Stdout
+	if out != "" {
+		if output, err = os.Create(out); err != nil {
+			fmt.Fprintf(os.Stderr, "Failed to open output file: %v\n", err)
+			os.Exit(1)
+		}
+	}
+
+	db, err := sql.Open("sqlite3", dbpath)
 	if err != nil {
-		fmt.Printf("Error opening database '%s': %s\n", path, err)
+		fmt.Printf("Error opening database '%s': %s\n", dbpath, err)
 		os.Exit(1)
 	}
 	defer db.Close()
@@ -132,8 +143,8 @@ func main() {
 		addIndex(entities, index.Table, idx, index.Unique == 1)
 	}
 
-	err = RenderFromTemplate(&Diagram{
-		Name:      path,
+	err = RenderFromTemplate(output, &Diagram{
+		Name:      dbpath,
 		Date:      time.Now().Format(time.RFC3339),
 		Entities:  entities,
 		Relations: rs,

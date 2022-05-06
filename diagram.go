@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"os"
+	"io"
 	"text/template"
 )
 
@@ -34,13 +34,13 @@ type ForeignKey struct {
 	SourceColumn string
 }
 
-func RenderFromTemplate(diagram *Diagram, tplFile string) error {
+func RenderFromTemplate(out io.Writer, diagram *Diagram, tplFile string) error {
 	template, err := template.ParseFiles(tplFile)
 	if err != nil {
 		return fmt.Errorf("failed to load template: %w", err)
 	}
 
-	err = template.Execute(os.Stdout, diagram)
+	err = template.Execute(out, diagram)
 	if err != nil {
 		return fmt.Errorf("failed to execute template: %w", err)
 	}

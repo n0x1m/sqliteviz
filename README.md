@@ -15,6 +15,10 @@ Usage of ./sqliteviz:
         sqlite database path
   -ignore value
         tables to ignore
+  -out string
+        output file to write to write to
+  -template string
+        template file to use (default "diagram.tpl.dot")
 ```
 
 Examples
